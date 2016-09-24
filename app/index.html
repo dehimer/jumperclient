@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jumper Server</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="css/index.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="header">
+	<div class="close">Close</div>
+</div>
+<div id="main">
+    <table class='setup'>
+		<tr>
+			<td>
+				<div class="setup__form">
+			      	<div class="setup__label">ID клиента:</div>
+		        	<input type="text" class="form-control setup__input setup__input-id">
+		        	
+		        	<div class="setup__label">IP и PORT сервера:</div>
+		        	<input type="text" class="form-control setup__input setup__input-ip">
+		        	<input type="text" class="form-control setup__input setup__input-port">
+			        
+			        <button type="submit" class="btn btn-default setup__button">Подтвердить</button>
+			    </div>
+			</td>
+		</tr>
+    </table>
+    <div class='indicator indicator--disabled'>
+    	<div class='indicator__container'>
+			<div class='indicator__circle'>
+			</div>
+		</div>
+    </div>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>

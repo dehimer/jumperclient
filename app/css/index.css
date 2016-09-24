@@ -1,0 +1,128 @@
+html,
+body {
+    background: #0C7CA2;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#header {
+    position: absolute;
+    top:0px;
+    width: 100vw;
+    height: 45px;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    background-color: rgba(0,0,0,0.1);
+}
+
+#main {
+    /*background: #1DCCEB;*/
+    border-bottom: 1px solid #73E2F7;
+    height: 700px;
+}
+
+#main h1 {
+    color: #fff;
+    padding-right: 6px;
+    padding-top: 5px;
+    text-align: right;
+    text-indent: -10000px;
+}
+
+#main h1 img {
+    height: 31px;
+    width: 195px;
+}
+
+.close {
+    cursor: pointer;
+    display: inline-block;
+    height: 32px;
+    position: absolute;
+    text-indent: -10000px;
+    top: 6px;
+    width: 32px;
+    z-index: 1;
+
+    -webkit-app-region: no-drag;
+    opacity: 1;
+}
+
+.close {
+    background: transparent url('../img/close.png') no-repeat 4px 4px;
+    background-size: 24px 24px;
+    right: 6px;
+}
+
+.setup {
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+
+.setup--disabled {
+    display: none;
+}
+
+.setup__form {
+    text-align: left;
+    /*margin-top:-130px;*/
+    padding-left: 25px;
+}
+
+.setup__label {
+    margin-top: 20px;
+    font-size:20px;
+    color:white;
+}
+
+.setup__input {
+    display: inline-block;
+    vertical-align: top;
+    font-size:20px;
+    width: 70px;
+    height: 35px;
+    text-align: center;
+}
+
+.setup__input-ip {
+    width: 150px;
+}
+
+.setup__input-port {
+    width: 100px;
+}
+
+.setup__button {
+    margin-top: 20px;
+    font-size:20px;
+    height: 55px;
+}
+
+.indicator {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 45px;
+    text-align: center;
+}
+
+.indicator--disabled {
+    display: none;
+}
+
+.indicator__container {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.indicator__circle {
+    width: 250px;
+    height: 250px;
+    border: 1px solid white;
+    border-radius: 50%;
+    -webkit-user-select: none;
+    margin: 10px auto;
+    /*margin-top: 20px;*/
+}
