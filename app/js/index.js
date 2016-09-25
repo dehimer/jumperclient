@@ -61,7 +61,7 @@ setupEls.submit.bind('click', function () {
 ipc.send('main-window:ready');
 
 
-var indicatorCircleEl = indicatorEl.find('.indicator__circle');
+var indicatorCircleEl = indicatorEl.find('.indicator__circle-big');
 ipc.on('main-window:update-color', function (color){
     indicatorCircleEl.css('background-color');
 });
@@ -69,4 +69,20 @@ ipc.on('main-window:update-color', function (color){
 ipc.on('main-window:ready-indicate', function (color){
     setupEl.addClass('setup--disabled');
     indicatorEl.removeClass('indicator--disabled');
+});
+
+
+indicatorCircleEl.bind('mousedown', function (){
+    // alert('!')
+    ipc.send('main-window:pressing-power', 1);
+
+    indicatorEl.bind('mouseup mouseout', function () {
+        // alert('!!');
+        indicatorEl.unbind('mouseup mouseout');
+        ipc.send('main-window:pressing-power', 0);
+    })
+});
+
+ipc.on('main-window:sensor-value', function (value){
+    indicatorEl.find('.indicator__value').html(value);
 });

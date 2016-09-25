@@ -27,6 +27,11 @@ ipc.on('main-window:close', function () {
     app.quit();
 });
 
+var pressingPower = 0;
+ipc.on('main-window:pressing-power', function (event, power) {
+    console.log('pressing-power: '+power);
+    pressingPower = power;
+});
 
 ipc.on('main-window:set-setup', function (event, data) {
     console.log(data);
@@ -39,17 +44,25 @@ ipc.on('main-window:set-setup', function (event, data) {
         var PORT = data.port;
 
         var dgram = require('dgram');
+        var val = 0;
 
         function sendState() {
 
-            var sensorVal = Math.floor(Math.random()*5);
+            val = val+(Math.random()*2*pressingPower-0.5);
+            if(val<0){
+                val = 0;
+            }else if(val>5){
+                val = 5;
+            };
 
-            var message = new Buffer(ID+' '+sensorVal);
+            var valueToSend = Math.floor(val)
+            mainWindow.webContents.send('main-window:sensor-value', valueToSend);
+            var message = new Buffer(ID+' '+valueToSend);
 
             var client = dgram.createSocket('udp4');
             client.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
                 if (err) throw err;
-                console.log(message)
+                // console.log(message)
                 // console.log('UDP message sent to ' + HOST +':'+ PORT);
                 client.close();
 
