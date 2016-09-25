@@ -1,6 +1,7 @@
 'use strict';
 
-var ipc = require('ipc');
+var electron = require('electron')
+var ipc = electron.ipcRenderer;
 var $ = require('jquery');
 
 var closeEl = $('.close');
@@ -62,11 +63,11 @@ ipc.send('main-window:ready');
 
 
 var indicatorCircleEl = indicatorEl.find('.indicator__circle-big');
-ipc.on('main-window:update-color', function (color){
+ipc.on('main-window:update-color', function (event, color){
     indicatorCircleEl.css('background-color');
 });
 
-ipc.on('main-window:ready-indicate', function (color){
+ipc.on('main-window:ready-indicate', function (event, color){
     setupEl.addClass('setup--disabled');
     indicatorEl.removeClass('indicator--disabled');
 });
@@ -83,6 +84,7 @@ indicatorCircleEl.bind('mousedown', function (){
     })
 });
 
-ipc.on('main-window:sensor-value', function (value){
+ipc.on('main-window:sensor-value', function (event, value){
+    console.log(value);
     indicatorEl.find('.indicator__value').html(value);
 });
