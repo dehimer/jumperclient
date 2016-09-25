@@ -62,9 +62,14 @@ setupEls.submit.bind('click', function () {
 ipc.send('main-window:ready');
 
 
-var indicatorCircleEl = indicatorEl.find('.indicator__circle-big');
-ipc.on('main-window:update-color', function (event, color){
-    indicatorCircleEl.css('background-color');
+var indicatorCircleBigEl = indicatorEl.find('.indicator__circle-big');
+ipc.on('main-window:big-circle-color', function (event, color){
+    indicatorCircleBigEl.css('background-color', color);
+});
+
+var indicatorCircleSmallEl = indicatorEl.find('.indicator__circle-small');
+ipc.on('main-window:small-circle-color', function (event, color){
+    indicatorCircleSmallEl.css('background-color', color);
 });
 
 ipc.on('main-window:ready-indicate', function (event, color){
@@ -73,7 +78,7 @@ ipc.on('main-window:ready-indicate', function (event, color){
 });
 
 
-indicatorCircleEl.bind('mousedown', function (){
+indicatorCircleBigEl.bind('mousedown', function (){
     // alert('!')
     ipc.send('main-window:pressing-power', 1);
 
