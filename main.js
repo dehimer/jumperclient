@@ -81,20 +81,21 @@ ipc.on('main-window:set-setup', function (event, data) {
         var curTs;
         var delay = 100;
 
+        var valueToSend;
+        setInterval(function(){
+            val = val+(pressingPower-0.5)*20;
+            val = Math.max(0, Math.min(1024, val));
 
-        function sendState() {
-
-            val = val+(pressingPower-0.5);
-            if(val<0){
-                val = 0;
-            }else if(val>5){
-                val = 5;
-            };
-
-            var valueToSend = Math.floor(val)
+            valueToSend = Math.floor(val)
             if(mainWindow){
                 mainWindow.webContents.send('main-window:sensor-value', valueToSend);
             }
+
+        }, 10);
+
+        function sendState() {
+
+            
 
             var message = new Buffer(ID+' '+valueToSend);
             curTs = +(new Date());
@@ -123,7 +124,7 @@ ipc.on('main-window:set-setup', function (event, data) {
 
         
         // UNIVERSES
-        var universes = new e131.Server([1, 2]);//
+        var universes = new e131.Server([1, 2], 5568);//
         // console.log(ID*2-1);
         universes.on('listening', function() {
             console.log(this.universes);
