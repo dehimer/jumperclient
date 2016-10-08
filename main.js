@@ -40,11 +40,12 @@ ipc.on('main-window:pressing-power', function (event, power) {
 
 
 var SERVER_HOST;
+var SERVER_PORT;
 
 /* UDP CLIENT FOR SERVER LIGHTING */
 var PORT = 5567;
 var dgram = require('dgram');
-var client = dgram.createSocket('udp4');
+var client = dgram.createSocket({type:'udp4', reuseAddr:true});
 
 client.on('listening', function () {
     var address = client.address();
@@ -54,6 +55,8 @@ client.on('listening', function () {
 
 client.on('message', function (message, rinfo) {
     SERVER_HOST = rinfo.address;
+    SERVER_PORT = rinfo.port;
+    console.log(JSON.stringify(rinfo));
     console.log('Message from: ' + rinfo.address + ':' + rinfo.port +' - ' + message);
 
 });
@@ -71,8 +74,6 @@ ipc.on('main-window:set-setup', function (event, data) {
 
         /* UDP CLIENT FOR COLORS */
         var ID = data.id;
-
-        var SERVER_PORT = 3000;
 
         var dgram = require('dgram');
         var val = 0;
@@ -99,12 +100,12 @@ ipc.on('main-window:set-setup', function (event, data) {
 
             var message = new Buffer(ID+' '+valueToSend);
             curTs = +(new Date());
-            if(SERVER_HOST){
+            if(SERVER_HOST && SERVER_PORT){
                 var client = dgram.createSocket('udp4');
                 client.send(message, 0, message.length, SERVER_PORT, SERVER_HOST, function(err, bytes) {
                     if (err) throw err;
                     // console.log(message)
-                    console.log('UDP message sent to ' + SERVER_PORT +':'+ SERVER_HOST);
+                    // console.log('UDP message sent to ' + SERVER_PORT +':'+ SERVER_HOST);
                     client.close();
 
                     setTimeout(sendState, delay - (+(new Date())-curTs) );
