@@ -90,6 +90,6 @@ indicatorCircleBigEl.bind('mousedown', function (){
 });
 
 ipc.on('main-window:sensor-value', function (event, value){
-    console.log(value);
+    // console.log(value);
     indicatorEl.find('.indicator__value').html(value);
 });
